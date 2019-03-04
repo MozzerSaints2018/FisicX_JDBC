@@ -3,9 +3,12 @@ package dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import dao.AlunoDao;
+import db.DB;
+import db.DbException;
 import entitites.Aluno;
 
 public class AlunoDaoJDBC implements AlunoDao{
@@ -58,8 +61,13 @@ public class AlunoDaoJDBC implements AlunoDao{
 				return null;
 			}
 		}
-
-		
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeConnection();
+		}
+		return null;		
 	}
 
 	@Override
