@@ -11,6 +11,7 @@ public class Program {
 		Aluno alu = new Aluno();
 		
 		pes.inserePessoas();
+		System.out.println();
 		alu.insereAlunos();
 		
 	}

@@ -1,0 +1,9 @@
+CREATE TABLE FX_Personal(
+per_Codigo int auto_increment,
+per_CodigoPessoa int NOT NULL,
+per_CodigoAluno int NOT NULL,
+per_Ativo tinyint,
+PRIMARY KEY (per_Codigo),
+FOREIGN KEY (per_CodigoPessoa) REFERENCES FX_Pessoa (pes_Codigo),
+FOREIGN KEY (per_CodigoAluno) REFERENCES FX_Aluno (alu_Codigo)
+)

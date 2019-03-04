@@ -12,12 +12,13 @@ import db.DbException;
 
 public class Pessoa {
 
-	
-	public void inserePessoas() {
-	
 	Connection conn = null; /* Realiza a conexão com o banco de dados recebendo valores do Properties*/
 	PreparedStatement st = null; /* Classe para inserir os comandos SQLs a serem executados no banco*/
 	Scanner sc = new Scanner(System.in);
+	
+	public void inserePessoas() {
+	
+	
 	
 	
 	try {

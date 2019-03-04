@@ -11,12 +11,14 @@ import db.DB;
 import db.DbException;
 
 public class Aluno{
+	Scanner sc = new Scanner(System.in);
+	Connection conn = null;
+	PreparedStatement st = null;
 	
 	public void insereAlunos() {
 		
-		Connection conn = null;
-		PreparedStatement st = null;
-		Scanner sc = new Scanner(System.in);
+		
+		
 		
 		try {
 			
@@ -26,7 +28,7 @@ public class Aluno{
 			System.out.println("----------------------------------------------------------");
 			System.out.println("--------------------DADOS INICIAIS------------------------");
 			
-			sc.nextLine();
+			
 			System.out.print("Peso: ");
 			double peso = sc.nextDouble();
 			
