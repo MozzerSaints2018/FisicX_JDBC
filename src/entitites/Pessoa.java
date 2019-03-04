@@ -19,8 +19,6 @@ public class Pessoa {
 	public void inserePessoas() {
 	
 	
-	
-	
 	try {
 		
 		conn = DB.getConnection();

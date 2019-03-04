@@ -1,6 +1,5 @@
 package entitites;
 
-import java.beans.FeatureDescriptor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -16,8 +15,6 @@ public class Aluno{
 	PreparedStatement st = null;
 	
 	public void insereAlunos() {
-		
-		
 		
 		
 		try {
