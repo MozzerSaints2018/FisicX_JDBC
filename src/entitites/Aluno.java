@@ -4,6 +4,7 @@ import java.beans.FeatureDescriptor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import db.DB;
@@ -25,11 +26,12 @@ public class Aluno{
 			System.out.println("----------------------------------------------------------");
 			System.out.println("--------------------DADOS INICIAIS------------------------");
 			
+			sc.nextLine();
 			System.out.print("Peso: ");
 			double peso = sc.nextDouble();
 			
 			System.out.print("Altura: ");
-			double altura = sc.nextInt();
+			double altura = sc.nextDouble();
 			
 			System.out.println("----------------------------------------------------------");
 			System.out.println("---------------------ANTROPOMETRIA------------------------");
@@ -151,6 +153,9 @@ public class Aluno{
 			
 		}
 		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		catch(NoSuchElementException e) {
 			throw new DbException(e.getMessage());
 		}
 		finally {

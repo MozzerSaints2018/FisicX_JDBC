@@ -52,7 +52,7 @@ public class Pessoa {
 		String login = sc.nextLine();
 		
 		System.out.println("Senha: ");
-		String senha = sc.nextLine();
+		String senha = sc.next();
 		
 		
 		st = conn.prepareStatement(
