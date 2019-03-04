@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 
@@ -15,8 +17,10 @@ public class DB {
 	public static Connection getConnection() {
 		if(conn == null) {
 			try {
+				/*Objeto do tipo Proporties contém as propriedads de conexão*/
 				Properties props = loadProperties();
 				String url = props.getProperty("dburl");
+				/* Variável conn receberá os parametros para conexão*/
 				conn = DriverManager.getConnection(url, props);
 			}
 			catch(SQLException e) {
@@ -50,6 +54,29 @@ public class DB {
 			throw new DbException(e.getMessage());
 		}
 		
+	}
+	
+	public static void closeStatement(Statement st) {
+		try {
+			if(st != null) {
+				st.close();
+			}
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		
+	}
+	
+	public static void closeResultSet(ResultSet res) {
+		if(res != null) {
+			try {
+				res.close();
+			}
+			catch (SQLException e){
+				throw new DbException(e.getMessage());
+			}
+		}
 	}
 
 }
