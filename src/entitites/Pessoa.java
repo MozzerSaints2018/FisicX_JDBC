@@ -1,94 +1,101 @@
 package entitites;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
+
+import db.DB;
+import db.DbException;
+
 public class Pessoa {
 
-	private String nome;
-	private String cpf;
-	private String logradouro;
-	private int numeroLogra;
-	private String cidade;
-	private String bairro;
-	private int idade;
-	private char sexo;
 	
-	public Pessoa() {
-	}
-
-	public Pessoa(String nome, String cpf, String logradouro, int numeroLogra,
-			String cidade, String bairro, int idade, char sexo) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.logradouro = logradouro;
-		this.numeroLogra = numeroLogra;
-		this.cidade = cidade;
-		this.bairro = bairro;
-		this.idade = idade;
-		this.sexo = sexo;
-	}
-
-	public char getSexo() {
-		return sexo;
-	}
-
-	public void setSexo(char sexo) {
-		this.sexo = sexo;
-	}
+	public void inserePessoas() {
 	
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-	public int getIdade() {
-		return idade;
-	}
-
-	public void setNome(int idade) {
-		this.idade = idade;
-	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public int getNumeroLogra() {
-		return numeroLogra;
-	}
-
-	public void setNumeroLogra(int numeroLogra) {
-		this.numeroLogra = numeroLogra;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
+	Connection conn = null; /* Realiza a conexão com o banco de dados recebendo valores do Properties*/
+	PreparedStatement st = null; /* Classe para inserir os comandos SQLs a serem executados no banco*/
+	Scanner sc = new Scanner(System.in);
 	
 	
+	try {
+		
+		conn = DB.getConnection();
+		
+		System.out.println("----------------------------------------------------------");
+		System.out.println("---------------------DADOS PESSOAIS-----------------------");
+
+		System.out.print("Nome: ");
+		String nome = sc.nextLine();
+		
+		System.out.print("Endereço: ");
+		String endereco = sc.nextLine();
+		
+		System.out.print("Bairro: ");
+		String bairro = sc.nextLine();
+		
+		System.out.print("Cidade: ");
+		String cidade = sc.nextLine();
+		
+		System.out.print("CEP: ");
+		String cep = sc.nextLine();
+		
+		System.out.print("CPF: ");
+		String cpf = sc.nextLine();
+		
+		System.out.print("Data de Nascimento: ");			
+		String dataNascimento = sc.nextLine();
+		
+		System.out.print("Login: ");
+		String login = sc.nextLine();
+		
+		System.out.println("Senha: ");
+		String senha = sc.nextLine();
+		
+		
+		st = conn.prepareStatement(
+				"INSERT INTO FX_Pessoa"
+				+ "(pes_Nome, pes_Endereco, pes_Bairro, pes_Cidade, pes_CEP,"
+				+ "pes_CPF, pes_DataNascimento, pes_Login, pes_Senha, pes_TipoAcesso, pes_Atibo) "
+				+ "VALUES (?,?,?,?,?,?,?,?,?,?,?)",
+				Statement.RETURN_GENERATED_KEYS );
+		
+		st.setString(1, nome);
+		st.setString(2, endereco);
+		st.setString(3, bairro);
+		st.setString(4, cidade);
+		st.setString(5, cep);
+		st.setString(6, cpf);
+		st.setString(7, dataNascimento);
+		st.setString(8, login);
+		st.setString(9, senha);
+		st.setInt(10, 1);
+		st.setInt(11, 1);
+		
+		int rowsAffected = st.executeUpdate();
+		
+		if(rowsAffected > 0) {
+			ResultSet rs = st.getGeneratedKeys(); /* Chamada de função getGeneratedKey retorna um ResultSet com o código da linha inserida.*/
+			while(rs.next()) {
+				int id = rs.getInt(1);
+				System.out.println("Done! ID: " + id);
+			}
+		}
+		else {
+			System.out.println("No rows affected");
+		}
+		
+}
+	catch(SQLException e) {
+		throw new DbException(e.getMessage());
+	}
+	finally {
+		DB.closeConnection();
+		DB.closeStatement(st);
+		sc.close();
+	}
+	
+	}
 }

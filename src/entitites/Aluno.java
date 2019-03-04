@@ -1,268 +1,163 @@
 package entitites;
 
-public class Aluno extends Pessoa{
+import java.beans.FeatureDescriptor;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+import db.DB;
+import db.DbException;
+
+public class Aluno{
 	
-	private double altura;
-	private double peso;
-	//Perimetria
-	private double pescoco;
-	private double ombro;
-	private double bradireito;
-	private double braesquerdo;
-	private double antibradireito;
-	private double antibraesquerdo;
-	private double torax;
-	private double cintura;
-	private double abdomen;
-	private double quadril;
-	private double coxdireita;
-	private double coxesquerda;
-	private double pandireita;
-	private double panesquerda;
-	//Antropometria
-	private double tricipital;
-	private double bicipital;
-	private double toraxica;
-	private double axmedia;
-	private double subscapular;
-	private double suiliaca;
-	private double peitmedia;
-	private double abdominal;
-	private double panturrilha;
+	public void insereAlunos() {
+		
+		Connection conn = null;
+		PreparedStatement st = null;
+		Scanner sc = new Scanner(System.in);
+		
+		try {
+			
+			conn = DB.getConnection();
+			
+			
+			System.out.println("----------------------------------------------------------");
+			System.out.println("--------------------DADOS INICIAIS------------------------");
+			
+			System.out.print("Peso: ");
+			double peso = sc.nextDouble();
+			
+			System.out.print("Altura: ");
+			double altura = sc.nextInt();
+			
+			System.out.println("----------------------------------------------------------");
+			System.out.println("---------------------ANTROPOMETRIA------------------------");
+			
+			System.out.print("Tricipital: ");
+			double tricipital = sc.nextDouble();
+			
+			System.out.print("Bicipital: ");
+			double bicipital = sc.nextDouble();
+			
+			System.out.print("Toraxica: ");
+			double toraxica = sc.nextDouble();
+			
+			System.out.print("Axilar Média: ");
+			double axmedia = sc.nextDouble();
+			
+			System.out.print("Subscapular: ");
+			double subscapular = sc.nextDouble();
+			
+			System.out.print("Supra - Iliaca: ");
+			double suiliaca = sc.nextDouble();
+			
+			System.out.print("Femural Média: ");
+			double femumedia = sc.nextDouble();
+			
+			System.out.print("Abdominal: ");
+			double abdominal = sc.nextDouble();
+			
+			System.out.print("Panturrilha: ");
+			double panturrilha = sc.nextDouble();
+			
+			
+			System.out.println("----------------------------------------------------------");
+			System.out.println("----------------------PERIMETRIA--------------------------");
+			
+			System.out.print("Pescoço: ");
+			double pescoco = sc.nextDouble();
+			
+			System.out.print("Ombro: ");
+			double ombro = sc.nextDouble();
+			
+			System.out.print("Braço Direito: ");
+			double bradireito = sc.nextDouble();
+			
+			System.out.print("Braço Esquerdo: ");
+			double braesquerdo = sc.nextDouble();
+			
+			System.out.print("Anti - Braço Direito: ");
+			double antibradireito = sc.nextDouble();
+			
+			System.out.print("Anti - Braço Esquerdo: ");
+			double antibraesquerdo = sc.nextDouble();
+			
+			System.out.print("Torax: ");
+			double torax = sc.nextDouble();
+			
+			System.out.print("Cintura: ");
+			double cintura = sc.nextDouble();
+			
+			System.out.print("Abdomen: ");
+			double abdomen = sc.nextDouble();
+			
+			System.out.print("Quadril: ");
+			double quadril = sc.nextDouble();
+			
+			System.out.print("Coxa Direita: ");
+			double coxdireita = sc.nextDouble();
+			
+			System.out.print("Coxa Esquerda: ");
+			double coxesquerda = sc.nextDouble();
+			
+			System.out.print("Panturrilha Direita: ");
+			double pandireita = sc.nextDouble();
+			
+			System.out.print("Panturrilha Esquerda: ");
+			double panesquerda = sc.nextDouble();
+			
+			st = conn.prepareStatement(
+					"INSERT INTO FX_Aluno"
+					+ "(alu_CodigoPessoa, alu_Altura, alu_Peso, alu_IMC, alu_Tricipital, alu_Bicipital,"
+					+ "alu_Toraxica, alu_AxilarMedia, alu_Subscapular, alu_SupraIliaca, alu_FemuralMedia,"
+					+ "alu_Abdominal, alu_Panturrilha, alu_Pescoco, alu_Ombro, alu_BracoDireito,"
+					+ "alu_BracoEsquerdo, alu_AntiBracoDireito, alu_AntiBracoEsquerdo, alu_Torax,"
+					+ "alu_Cintura, alu_Abdomen, alu_Quadril, alu_CoxaDireita, alu_CoxaEsquerda,"
+					+ "alu_PanturrilhaDireita, alu_PanturrilhaEsquerda, alu_Ativo) "
+					+ "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+			
+			st.setDouble(1, 1);
+			st.setDouble(2, altura);
+			st.setDouble(3, peso);
+			st.setDouble(4, (peso / (altura * altura)));
+			st.setDouble(5, tricipital);
+			st.setDouble(6, bicipital);
+			st.setDouble(7, toraxica);
+			st.setDouble(8, axmedia);
+			st.setDouble(9, subscapular);
+			st.setDouble(10, suiliaca);
+			st.setDouble(11, femumedia);
+			st.setDouble(12, abdominal);
+			st.setDouble(13, panturrilha);
+			st.setDouble(14, pescoco);
+			st.setDouble(15, ombro);
+			st.setDouble(16, bradireito);
+			st.setDouble(17, bradireito);
+			st.setDouble(18, antibradireito);
+			st.setDouble(19, antibraesquerdo);
+			st.setDouble(20, torax);
+			st.setDouble(21, cintura);
+			st.setDouble(22, abdomen);
+			st.setDouble(23, quadril);
+			st.setDouble(24, coxdireita);
+			st.setDouble(25,coxesquerda);
+			st.setDouble(26, pandireita);
+			st.setDouble(27, panesquerda);
+			st.setInt(28, 1);
+			
+			st.executeUpdate();
+			
+			
+		}
+		catch(SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeConnection();
+			DB.closeStatement(st);
+			sc.close();
+		}
+	}
 	
-	public Aluno() {}
-
-	public Aluno(double altura, double peso, double pescoco, double ombro, double bradireito, double braesquerdo,
-			double antibradireito, double antibraesquerdo, double torax, double cintura, double abdomen, double quadril,
-			double coxdireita, double coxesquerda, double pandireita, double panesquerda, double tricipital,
-			double bicipital, double toraxica, double axmedia, double subscapular, double suiliaca, double peitmedia,
-			double abdominal, double panturrilha) {
-		super();
-		this.altura = altura;
-		this.peso = peso;
-		this.pescoco = pescoco;
-		this.ombro = ombro;
-		this.bradireito = bradireito;
-		this.braesquerdo = braesquerdo;
-		this.antibradireito = antibradireito;
-		this.antibraesquerdo = antibraesquerdo;
-		this.torax = torax;
-		this.cintura = cintura;
-		this.abdomen = abdomen;
-		this.quadril = quadril;
-		this.coxdireita = coxdireita;
-		this.coxesquerda = coxesquerda;
-		this.pandireita = pandireita;
-		this.panesquerda = panesquerda;
-		this.tricipital = tricipital;
-		this.bicipital = bicipital;
-		this.toraxica = toraxica;
-		this.axmedia = axmedia;
-		this.subscapular = subscapular;
-		this.suiliaca = suiliaca;
-		this.peitmedia = peitmedia;
-		this.abdominal = abdominal;
-		this.panturrilha = panturrilha;
-	}
-
-
-	public double getAltura() {
-		return altura;
-	}
-
-	public void setAltura(double altura) {
-		this.altura = altura;
-	}
-
-	public double getPeso() {
-		return peso;
-	}
-
-	public void setPeso(double peso) {
-		this.peso = peso;
-	}
-
-	public double getPescoco() {
-		return pescoco;
-	}
-
-	public void setPescoco(double pescoco) {
-		this.pescoco = pescoco;
-	}
-
-	public double getOmbro() {
-		return ombro;
-	}
-
-	public void setOmbro(double ombro) {
-		this.ombro = ombro;
-	}
-
-	public double getBradireito() {
-		return bradireito;
-	}
-
-	public void setBradireito(double bradireito) {
-		this.bradireito = bradireito;
-	}
-
-	public double getBraesquerdo() {
-		return braesquerdo;
-	}
-
-	public void setBraesquerdo(double braesquerdo) {
-		this.braesquerdo = braesquerdo;
-	}
-
-	public double getAntibradireito() {
-		return antibradireito;
-	}
-
-	public void setAntibradireito(double antibradireito) {
-		this.antibradireito = antibradireito;
-	}
-
-	public double getAntibraesquerdo() {
-		return antibraesquerdo;
-	}
-
-	public void setAntibraesquerdo(double antibraesquerdo) {
-		this.antibraesquerdo = antibraesquerdo;
-	}
-
-	public double getTorax() {
-		return torax;
-	}
-
-	public void setTorax(double torax) {
-		this.torax = torax;
-	}
-
-	public double getCintura() {
-		return cintura;
-	}
-
-	public void setCintura(double cintura) {
-		this.cintura = cintura;
-	}
-
-	public double getAbdomen() {
-		return abdomen;
-	}
-
-	public void setAbdomen(double abdomen) {
-		this.abdomen = abdomen;
-	}
-
-	public double getQuadril() {
-		return quadril;
-	}
-
-	public void setQuadril(double quadril) {
-		this.quadril = quadril;
-	}
-
-	public double getCoxdireita() {
-		return coxdireita;
-	}
-
-	public void setCoxdireita(double coxdireita) {
-		this.coxdireita = coxdireita;
-	}
-
-	public double getCoxesquerda() {
-		return coxesquerda;
-	}
-
-	public void setCoxesquerda(double coxesquerda) {
-		this.coxesquerda = coxesquerda;
-	}
-
-	public double getPandireita() {
-		return pandireita;
-	}
-
-	public void setPandireita(double pandireita) {
-		this.pandireita = pandireita;
-	}
-
-	public double getPanesquerda() {
-		return panesquerda;
-	}
-
-	public void setPanesquerda(double panesquerda) {
-		this.panesquerda = panesquerda;
-	}
-
-	public double getTricipital() {
-		return tricipital;
-	}
-
-	public void setTricipital(double tricipital) {
-		this.tricipital = tricipital;
-	}
-
-	public double getBicipital() {
-		return bicipital;
-	}
-
-	public void setBicipital(double bicipital) {
-		this.bicipital = bicipital;
-	}
-
-	public double getToraxica() {
-		return toraxica;
-	}
-
-	public void setToraxica(double toraxica) {
-		this.toraxica = toraxica;
-	}
-
-	public double getAxmedia() {
-		return axmedia;
-	}
-
-	public void setAxmedia(double axmedia) {
-		this.axmedia = axmedia;
-	}
-
-	public double getSubscapular() {
-		return subscapular;
-	}
-
-	public void setSubscapular(double subscapular) {
-		this.subscapular = subscapular;
-	}
-
-	public double getSuiliaca() {
-		return suiliaca;
-	}
-
-	public void setSuiliaca(double suiliaca) {
-		this.suiliaca = suiliaca;
-	}
-
-	public double getPeitmedia() {
-		return peitmedia;
-	}
-
-	public void setPeitmedia(double peitmedia) {
-		this.peitmedia = peitmedia;
-	}
-
-	public double getAbdominal() {
-		return abdominal;
-	}
-
-	public void setAbdominal(double abdominal) {
-		this.abdominal = abdominal;
-	}
-
-	public double getPanturrilha() {
-		return panturrilha;
-	}
-
-	public void setPanturrilha(double panturrilha) {
-		this.panturrilha = panturrilha;
-	}
 }

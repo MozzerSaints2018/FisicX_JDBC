@@ -4,7 +4,7 @@ import entitites.Aluno;
 import entitites.Pessoa;
 
 public class Calculo {
-	
+	/*
 	Aluno aluno = new Aluno();
 	Pessoa pessoa = new Pessoa();
 	
@@ -46,5 +46,5 @@ public class Calculo {
 		}else if(Imc > 40) {
 			System.out.println("Obesidade Grau III (mórbida)");
 		}
-	}
+	}*/
 }
