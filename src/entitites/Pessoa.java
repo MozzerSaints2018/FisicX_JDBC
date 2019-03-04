@@ -25,6 +25,8 @@ public class Pessoa {
 		
 		conn = DB.getConnection();
 		
+		conn.setAutoCommit(false);
+		
 		System.out.println("----------------------------------------------------------");
 		System.out.println("---------------------DADOS PESSOAIS-----------------------");
 
@@ -77,6 +79,8 @@ public class Pessoa {
 		
 		int rowsAffected = st.executeUpdate();
 		
+		conn.commit();
+		
 		if(rowsAffected > 0) {
 			ResultSet rs = st.getGeneratedKeys(); /* Chamada de função getGeneratedKey retorna um ResultSet com o código da linha inserida.*/
 			while(rs.next()) {
@@ -90,7 +94,12 @@ public class Pessoa {
 		
 }
 	catch(SQLException e) {
-		throw new DbException(e.getMessage());
+		try {
+			conn.rollback();
+			throw new DbException("Rollback realizado.");
+		} catch (SQLException e1) {
+			throw new DbException("Erro ao realizar Rollback" + e1.getMessage());
+		}
 	}
 	finally {
 		DB.closeConnection();

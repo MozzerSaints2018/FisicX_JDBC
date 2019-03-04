@@ -24,6 +24,7 @@ public class Aluno{
 			
 			conn = DB.getConnection();
 			
+			conn.setAutoCommit(false);
 			
 			System.out.println("----------------------------------------------------------");
 			System.out.println("--------------------DADOS INICIAIS------------------------");
@@ -152,13 +153,20 @@ public class Aluno{
 			
 			st.executeUpdate();
 			
+			conn.commit();
+			
 			
 		}
 		catch(SQLException e) {
-			throw new DbException(e.getMessage());
+			try {
+				conn.rollback();
+				throw new DbException("RollBack realizado.");
+			} catch (SQLException e1) {
+				throw new DbException("Erro ao realizar o RollBack" + e1.getMessage());
+			}
 		}
 		catch(NoSuchElementException e) {
-			throw new DbException(e.getMessage());
+			e.printStackTrace();
 		}
 		finally {
 			DB.closeConnection();
