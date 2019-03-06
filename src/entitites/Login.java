@@ -34,7 +34,8 @@ public class Login {
 					+ "WHERE pes_Login LIKE ?");
 			
 			stLogin.setString(1, login);
-			stLogin.executeUpdate();
+			//stLogin.executeUpdate();
+			boolean blLogin = stLogin.execute();
 			
 			//rsLogin = stLogin.executeQuery(
 			//		"SELECT pes_Login FROM FX_Pessoa"
@@ -47,22 +48,27 @@ public class Login {
 					+ "WHERE pes_Senha LIKE ?");
 			
 			stSenha.setString(1, senha);
-			stSenha.executeUpdate();
+			//stSenha.executeUpdate();
+			boolean blSenha = stSenha.execute();
 			
 			//rsSenha = stSenha.executeQuery(
 			//		"SELECT pes_Login FROM FX_Pessoa"
 			//		 + "WHERE pes_Senha LIKE " + senha);
 			
+			if(blLogin == true && blSenha == true) {
+				System.out.println(1);
+			}else {
+				System.out.println(2);
+			}
 			
 			
-			
-			while(rsLogin.next()) {
+			/*while(rsLogin.next()) {
 				System.out.println(rsLogin.getString("pes_Login"));
 			}
 			
 			while(rsSenha.next()) {
 				System.out.println(rsSenha.getString("pes_Senha"));
-			}
+			}*/
 			
 		}
 		catch(SQLException e) {
