@@ -34,6 +34,7 @@ public class Login {
 					+ "WHERE pes_Login LIKE ?");
 			
 			stLogin.setString(1, login);
+			stLogin.executeUpdate();
 			
 			//rsLogin = stLogin.executeQuery(
 			//		"SELECT pes_Login FROM FX_Pessoa"
@@ -46,6 +47,7 @@ public class Login {
 					+ "WHERE pes_Senha LIKE ?");
 			
 			stSenha.setString(1, senha);
+			stSenha.executeUpdate();
 			
 			//rsSenha = stSenha.executeQuery(
 			//		"SELECT pes_Login FROM FX_Pessoa"
